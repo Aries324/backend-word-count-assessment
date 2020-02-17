@@ -42,7 +42,7 @@ print_words() and print_top().
 import sys
 
 
-# clear all punctuation and set to lowercase
+
 
 
 def sort_by_value(item):

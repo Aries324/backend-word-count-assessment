@@ -41,21 +41,59 @@ print_words() and print_top().
 
 import sys
 
-# +++your code here+++
-# Define print_words(filename) and print_top(filename) functions.
-# You could write a helper utility function that reads a file
-# and builds and returns a word/count dict for it.
-# Then print_words() and print_top() can just call the utility function.
 
-###
+# clear all punctuation and set to lowercase
 
-# This basic command line argument parsing code is provided and
-# calls the print_words() and print_top() functions which you must define.
+
+def sort_by_value(item):
+    return item[-1]
+
+
+def build_dict(filename):
+    with open(filename, 'rU') as f:
+        words = f.read().split()
+        count = {}
+
+        for word in words:
+            word = word.lower()
+
+            count[word] = count.get(word, 0) + 1
+        return count
+
+
+def print_words(filename):
+    dic = build_dict(filename)
+
+    for word in sorted(dic.keys()):
+        print(word, dic[word])
+
+
+def print_top(filename):
+    count = build_dict(filename)
+    i = 0
+
+    items = sorted(count.items(), key=sort_by_value, reverse=True)
+    for item in items[:20]:
+        print(item[0] + ': ' + str(item[1]) + ' times')
+        i += 1
+
+
+        # +++your code here+++
+        # Define print_words(filename) and print_top(filename) functions.
+        # You could write a helper utility function that reads a file
+        # and builds and returns a word/count dict for it.
+        # Then print_words() and print_top() can just call the utility function.
+
+        ###
+
+        # This basic command line argument parsing code is provided and
+        # calls the print_words() and print_top() functions which you must define.
 
 
 def main():
     if len(sys.argv) != 3:
-        print 'usage: python wordcount.py {--count | --topcount} file'
+        pass
+       # print 'usage: python wordcount.py {--count | --topcount} file'
         sys.exit(1)
 
     option = sys.argv[1]
@@ -65,7 +103,7 @@ def main():
     elif option == '--topcount':
         print_top(filename)
     else:
-        print 'unknown option: ' + option
+        print('unknown option: ' + option)
         sys.exit(1)
 
 
